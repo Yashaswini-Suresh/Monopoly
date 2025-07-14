@@ -13,22 +13,27 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.yashaswinimonopolygame.ui.theme.MonopolyGameTheme
 
-class MainActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContent {
-            MonopolyGameTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
-            }
-        }
-    }
-}
+ class MainActivity : AppCompatActivity() {
+
+     private lateinit var game: GameEngine
+
+     override fun onCreate(savedInstanceState: Bundle?) {
+         super.onCreate(savedInstanceState)
+         setContentView(R.layout.activity_main)
+
+         val players = listOf(Player("Player 1"), Player("Player 2"))
+         val board = Board()
+         game = GameEngine(players, board)
+
+         val rollButton = findViewById<Button>(R.id.rollButton)
+         val textView = findViewById<TextView>(R.id.textView)
+
+         rollButton.setOnClickListener {
+             game.nextTurn()
+             textView.text = "Turn completed. Check logs for actions."
+         }
+     }
+ }
 
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
