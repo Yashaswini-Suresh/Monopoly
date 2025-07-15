@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.yashaswinimonopolygame"
+    namespace = "com.monopolygame"
     compileSdk = 36
 
     defaultConfig {
